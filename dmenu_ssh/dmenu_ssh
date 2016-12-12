@@ -1,0 +1,30 @@
+#!/bin/bash
+
+TERMINAL="gnome-terminal -e"
+
+SSH_SERVER_LIST="$HOME/.cache/dmenu_ssh"
+SSH_CMD="/usr/bin/ssh"
+SSH_PORT_PARAMETER="-p"
+SSH_DEFAULT_PORT="22"
+
+function parseSSHHostEntry() {
+RESULT=`cat $SSH_SERVER_LIST | dmenu -p ssh ${1+"$@"}`
+if [ -z $RESULT ]; then
+return 1
+fi
+
+echo $RESULT | grep -q ":"
+if [[ "$?" -eq "0" ]]; then
+SSH_HOST=$(echo $RESULT | awk -F ':' '{print $1}')
+SSH_PORT=$(echo $RESULT | awk -F ':' '{print $2}')
+
+SSH_PARAMETERS=$(echo $SSH_HOST $SSH_PORT_PARAMETER $SSH_PORT)
+else
+SSH_PARAMETERS=$(echo $RESULT $SSH_PORT_PARAMETER $SSH_DEFAULT_PORT)
+fi
+
+return 0
+}
+
+
+parseSSHHostEntry && exec $TERMINAL "$SSH_CMD $SSH_PARAMETERS"
