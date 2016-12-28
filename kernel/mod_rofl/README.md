@@ -2,10 +2,21 @@
 easy kernel module for show random jokes in /dev/rofl 
 (it has been created just for fun)
 
+##### installation #####
 <pre>
-filename:       linux-tools/kernel/mod_rofl/rofl.ko
-version:        0.1.0
-license:        Beerware
-description:    rofl - generating jokes to /dev/rofl
-author:         Matus Bursa <burso@burso.eu>
+$ cd linux-tools/kernel/mod_rofl
+$ make
+$ sudo su
+# insmod rofl.ko
+</pre>
+
+##### example #####
+<pre>
+# cat /dev/rofl
+I am a nobody, nobody is perfect, therefore I am perfect.
+</pre>
+
+##### cleanup module #####
+<pre>
+# rmmod rofl
 </pre>
