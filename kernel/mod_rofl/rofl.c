@@ -126,11 +126,12 @@ static ssize_t rofl_read(struct file * file, char * buffer,
                           size_t count, loff_t *ppos)
 {
 	int i, random_number;
+  size_t len;
 
 	get_random_bytes(&i, sizeof(i));	
 	random_number = i % (sizeof(rofl_jokes) / MAX_SIZE);
     
-    size_t len = strlen(rofl_jokes[random_number]); 
+    len = strlen(rofl_jokes[random_number]); 
     if (count < len)
 		return -EINVAL;
     
