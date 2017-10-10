@@ -1,0 +1,12 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "bento/centos-7.3"
+  config.vm.hostname = "master.salt.example.org"
+  config.vm.network :private_network, ip: "192.168.200.2"
+
+  config.vm.provision :salt do |salt|
+      salt.install_master = true
+      salt.no_minion = true
+  end
+end
