@@ -138,7 +138,7 @@ static ssize_t rofl_read(struct file * file, char * buffer,
     if (*ppos != 0)
         return 0;
     
-    if (copy_to_user(buffer, rofl_jokes[random_number], len))
+    if (raw_copy_to_user(buffer, rofl_jokes[random_number], len))
         return -EINVAL;
     
     *ppos = len;
